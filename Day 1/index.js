@@ -1,6 +1,9 @@
  const fs=require('fs');
 const http=require('http')
 const url=require('url')
+
+
+
 // const textIn=fs.readFileSync('./hello.txt','utf-8');
 // console.log(textIn);
 
@@ -24,9 +27,18 @@ const url=require('url')
 // });
 /////////////////////////////////
 
+
+//Server
+const data=fs.readFileSync(`${__dirname}/dev-data/data.json`,'utf-8')
+  const objdata =JSON.parse(data);
+
 const server=http.createServer((req,res)=>{
   // console.log(req.url)
   const pathName=req.url;
+
+
+
+
   if(pathName==='/'|| pathName==='/overview'){
     res.end("This is overview");
 
@@ -37,11 +49,13 @@ const server=http.createServer((req,res)=>{
 
   }
   else if(pathName==='/api'){
-fs.readFile(`${__dirname}/dev-data/data.json`,'utf-8',(err,data) =>{
-  const productData =JSON.parse(data);
-  console.log(productData);
-});
-res.end('API');
+// fs.readFile(`${__dirname}/dev-data/data.json`,'utf-8',(err,data) =>{
+//   const productData =JSON.parse(data);
+  res.writeHead(200,{'Content-type':'application'})
+  res.end(data)
+  // console.log(productData);
+// });
+// res.end('API');
   }
 
 
